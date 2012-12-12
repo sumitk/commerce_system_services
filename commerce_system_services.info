@@ -1,0 +1,4 @@
+name = Commerce System Services
+description = Defines System Services resources for Drupal Commerce Mobile App.
+package = Services
+core = 7.x

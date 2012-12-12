@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Defines Services resources for Drupal Commerce System services.
+ */
+
+/**
+ * Implements hook_services_resources().
+ */
+function commerce_system_services_services_resources() {
+  $resources = array();
+	
+	$resources['commerce_system'] = array(
+	  'actions' => array(
+	    'connect' => array(
+				'help' => 'Forcefully Starts user session for anon users. Helpful while making connect calls from mobile apps.',
+	      'access callback' => 'services_access_menu',
+	      'file' => array('type' => 'inc', 'module' => 'commerce_system_services', 'name' => 'resources/system'),
+	      'callback' => 'commerce_system_services_connect',
+	    ),
+			'session_destroy' => array(
+				'help' => 'Deletes user session.',
+	      'access callback' => 'services_access_menu',
+	      'file' => array('type' => 'inc', 'module' => 'commerce_system_services', 'name' => 'resources/system'),
+	      'callback' => 'commerce_system_services_session_destroy',
+	    ),
+			'get_variables' => array(
+        'help'   => t('Returns the values of a system variables using variable_get().'),
+        'file' => array('type' => 'inc', 'module' => 'commerce_system_services', 'name' => 'resources/system'),
+        'callback' => 'commerce_system_services_variables_get',
+        'access arguments' => array('get system variables'),
+        'access arguments append' => FALSE,
+        'args' => array(
+					array(
+		    		'name' => 'variables',
+		    		'type' => 'array',
+		    		'description' => 'An array of variables whose values are to be returned.',
+		    		'source' => array('data'=>'variables'),
+		    		'optional' => FALSE,
+		  		),
+        ),
+      ),
+	  ),
+	);
+
+  return $resources;
+}
+
